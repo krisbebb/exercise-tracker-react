@@ -8,11 +8,11 @@ export default class EditExercise extends Component {
     super(props);
 
     this.state = {
-      username: '',
-      description: '',
-      duration: 0,
+      activity: '',
+      reps: '',
+      weight: 0,
       date: new Date(),
-      users: []
+      activities: []
     }
   }
 
@@ -20,9 +20,9 @@ export default class EditExercise extends Component {
     axios.get('http://localhost:5000/exercises/'+this.props.match.params.id)
       .then(response => {
         this.setState({
-          username: response.data.username,
-          description: response.data.description,
-          duration: response.data.duration,
+          activity: response.data.activity,
+          reps: response.data.reps,
+          weight: response.data.weight,
           date: new Date(response.data.date)
         })   
       })
@@ -34,7 +34,7 @@ export default class EditExercise extends Component {
       .then(response => {
         if (response.data.length > 0) {
           this.setState({
-            users: response.data.map(user => user.username),
+            users: response.data.map(user => user.activity),
           })
         }
       })
@@ -46,19 +46,19 @@ export default class EditExercise extends Component {
 
   onChangeUsername = (e) => {
     this.setState({
-      username: e.target.value
+      activity: e.target.value
     })
   }
 
   onChangeDescription = (e) => {
     this.setState({
-      description: e.target.value
+      reps: e.target.value
     })
   }
 
   onChangeDuration = (e) => {
     this.setState({
-      duration: e.target.value
+      weight: e.target.value
     })
   }
 
@@ -72,9 +72,9 @@ export default class EditExercise extends Component {
     e.preventDefault();
 
     const exercise = {
-      username: this.state.username,
-      description: this.state.description,
-      duration: this.state.duration,
+      activity: this.state.activity,
+      reps: this.state.reps,
+      weight: this.state.weight,
       date: this.state.date
     }
 
@@ -92,37 +92,37 @@ export default class EditExercise extends Component {
       <h3>Edit Exercise Log</h3>
       <form onSubmit={this.onSubmit}>
         <div className="form-group"> 
-          <label>Username: </label>
+          <label>Activity: </label>
           <select ref="userInput"
               required
               className="form-control"
-              value={this.state.username}
+              value={this.state.activity}
               onChange={this.onChangeUsername}>
               {
-                this.state.users.map(function(user) {
+                this.state.activities.map(function(activity) {
                   return <option 
-                    key={user}
-                    value={user}>{user}
+                    key={activity}
+                    value={activity}>{activity}
                     </option>;
                 })
               }
           </select>
         </div>
         <div className="form-group"> 
-          <label>Description: </label>
+          <label>Reps: </label>
           <input  type="text"
               required
               className="form-control"
-              value={this.state.description}
+              value={this.state.reps}
               onChange={this.onChangeDescription}
               />
         </div>
         <div className="form-group">
-          <label>Duration (in minutes): </label>
+          <label>Weight (in kilos): </label>
           <input 
               type="text" 
               className="form-control"
-              value={this.state.duration}
+              value={this.state.weight}
               onChange={this.onChangeDuration}
               />
         </div>

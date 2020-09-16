@@ -8,11 +8,11 @@ export default class CreateExercise extends Component {
     super(props);
     
     this.state = {
-      username: '',
-      description: '',
-      duration: 0,
+      activity: '',
+      reps: '',
+      weight: 0,
       date: new Date(),
-      users: []
+      activities: []
     }
   }
 
@@ -21,8 +21,8 @@ export default class CreateExercise extends Component {
       .then(response => {
         if (response.data.length > 0) {
           this.setState({
-            users: response.data.map(user => user.username),
-            username: response.data[0].username
+            activities: response.data.map(activity => activity.activity),
+            activity: response.data[0].activity
           })
         }
       })
@@ -60,9 +60,9 @@ export default class CreateExercise extends Component {
     e.preventDefault();
 
     const exercise = {
-      username: this.state.username,
-      description: this.state.description,
-      duration: this.state.duration,
+      activity: this.state.activity,
+      reps: this.state.reps,
+      weight: this.state.weight,
       date: this.state.date
     }
 
@@ -80,37 +80,37 @@ export default class CreateExercise extends Component {
       <h3>Create New Exercise Log</h3>
       <form onSubmit={this.onSubmit}>
         <div className="form-group"> 
-          <label>Username: </label>
+          <label>Activity: </label>
           <select ref="userInput"
               required
               className="form-control"
-              value={this.state.username}
+              value={this.state.activity}
               onChange={this.onChangeUsername}>
               {
-                this.state.users.map(function(user) {
+                this.state.activities.map(function(activity) {
                   return <option 
-                    key={user}
-                    value={user}>{user}
+                    key={activity}
+                    value={activity}>{activity}
                     </option>;
                 })
               }
           </select>
         </div>
         <div className="form-group"> 
-          <label>Description: </label>
+          <label>Reps: </label>
           <input  type="text"
               required
               className="form-control"
-              value={this.state.description}
+              value={this.state.reps}
               onChange={this.onChangeDescription}
               />
         </div>
         <div className="form-group">
-          <label>Duration (in minutes): </label>
+          <label>Weight (in kilos): </label>
           <input 
               type="text" 
               className="form-control"
-              value={this.state.duration}
+              value={this.state.weight}
               onChange={this.onChangeDuration}
               />
         </div>

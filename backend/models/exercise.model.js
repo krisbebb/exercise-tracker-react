@@ -3,9 +3,9 @@ const Schema = mongoose.Schema
 
 const exerciseSchema = new Schema(
   {
-    username: { type: String, required: true },
-    description: { type: String, required: true },
-    duration: { type: Number, required: true },
+    activity: { type: String, required: true },
+    reps: { type: String, required: true },
+    weight: { type: String, required: true },
     date: { type: Date, required: true },
   },
   {

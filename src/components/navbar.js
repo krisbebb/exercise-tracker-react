@@ -21,6 +21,11 @@ class Navbar extends Component {
               </Link>
             </li>
             <li className='navbar-item'>
+            <Link to='/users' className='nav-link'>
+              Users
+            </Link>
+          </li>
+            <li className='navbar-item'>
               <Link to='/user' className='nav-link'>
                 Create User
               </Link>

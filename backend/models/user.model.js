@@ -3,7 +3,7 @@ const Schema = mongoose.Schema
 
 const userSchema = new Schema(
     {
-      username: {
+      activity: {
         type: String,
         require: true,
         unique: true,

@@ -10,6 +10,20 @@ export default class CreateUser extends Component {
     }
   }
 
+  componentDidMount() {
+    axios.get('http://localhost:5000/users/'+this.props.match.params.id)
+
+    .then(response => {
+        console.log(response.data)
+        this.setState({
+          activity: response.data.activity,
+        })
+    })
+    .catch((error) => {
+      console.log(error);
+    })
+  }
+
   onChangeUsername = (e) => {
     this.setState({
       activity: e.target.value
@@ -25,7 +39,7 @@ export default class CreateUser extends Component {
 
     console.log(user);
 
-    axios.post('http://localhost:5000/users/add', user)
+    axios.post('http://localhost:5000/users/update/' + this.props.match.params.id, user)
       .then(res => console.log(res.data));
 
     this.setState({
@@ -38,7 +52,7 @@ export default class CreateUser extends Component {
   render() {
     return (
       <div>
-        <h3>Create New User</h3>
+        <h3>Edit Activity</h3>
         <form onSubmit={this.onSubmit}>
           <div className="form-group"> 
             <label>Activity: </label>
@@ -50,7 +64,7 @@ export default class CreateUser extends Component {
                 />
           </div>
           <div className="form-group">
-            <input type="submit" value="Create User" className="btn btn-primary" />
+            <input type="submit" value="Edit User" className="btn btn-primary" />
           </div>
         </form>
       </div>
