@@ -1,0 +1,3 @@
+{"_id":{"$oid":"5f62b88fe9c56c29cd66b72a"},"activityName":"Front shoulder raise","createdAt":{"$date":{"$numberLong":"1600305295266"}},"updatedAt":{"$date":{"$numberLong":"1600305295266"}},"__v":{"$numberInt":"0"}}
+{"_id":{"$oid":"5f62b89ee9c56c29cd66b72b"},"activityName":"Side shoulder raise","createdAt":{"$date":{"$numberLong":"1600305310913"}},"updatedAt":{"$date":{"$numberLong":"1600305310913"}},"__v":{"$numberInt":"0"}}
+{"_id":{"$oid":"5f62b8ace9c56c29cd66b72c"},"activityName":"Overhead shoulder press","createdAt":{"$date":{"$numberLong":"1600305324866"}},"updatedAt":{"$date":{"$numberLong":"1600305324866"}},"__v":{"$numberInt":"0"}}
