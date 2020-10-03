@@ -3,13 +3,14 @@ import axios from 'axios';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 
-export default class EditExercise extends Component {
+const BASE_URL = process.env.REACT_APP_BASE_URL;
+export default class CreateSet extends Component {
   constructor(props) {
     super(props);
-
+    
     this.state = {
-      activity: '',
-      reps: '',
+      activityName: '',
+      reps: '0',
       weight: 0,
       date: new Date(),
       activities: []
@@ -17,24 +18,12 @@ export default class EditExercise extends Component {
   }
 
   componentDidMount() {
-    axios.get('http://localhost:5000/exercises/'+this.props.match.params.id)
-      .then(response => {
-        this.setState({
-          activity: response.data.activity,
-          reps: response.data.reps,
-          weight: response.data.weight,
-          date: new Date(response.data.date)
-        })   
-      })
-      .catch(function (error) {
-        console.log(error);
-      })
-
-    axios.get('http://localhost:5000/users/')
+    axios.get(BASE_URL + '/activities/')
       .then(response => {
         if (response.data.length > 0) {
           this.setState({
-            users: response.data.map(user => user.activity),
+            activities: response.data.map(activityName => activityName.activityName),
+            activityName: response.data[0].activityName
           })
         }
       })
@@ -44,19 +33,19 @@ export default class EditExercise extends Component {
 
   }
 
-  onChangeUsername = (e) => {
+  onChangeActivityName = (e) => {
     this.setState({
-      activity: e.target.value
+      activityName: e.target.value
     })
   }
 
-  onChangeDescription = (e) => {
+  onChangeReps = (e) => {
     this.setState({
       reps: e.target.value
     })
   }
 
-  onChangeDuration = (e) => {
+  onChangeWeight = (e) => {
     this.setState({
       weight: e.target.value
     })
@@ -71,38 +60,39 @@ export default class EditExercise extends Component {
   onSubmit = (e) => {
     e.preventDefault();
 
-    const exercise = {
-      activity: this.state.activity,
+    const set = {
+      activityName: this.state.activityName,
       reps: this.state.reps,
       weight: this.state.weight,
       date: this.state.date
     }
 
-    console.log(exercise);
+    console.log(set);
 
-    axios.post('http://localhost:5000/exercises/update/' + this.props.match.params.id, exercise)
-      .then(res => console.log(res.data));
-
-    window.location = '/';
+    axios.post(BASE_URL + '/sets/add', set)
+      .then(res => {
+        console.log(res.data)
+        window.location = '/';
+      });
   }
 
   render() {
     return (
     <div>
-      <h3>Edit Exercise Log</h3>
+      <h3>Create New Set</h3>
       <form onSubmit={this.onSubmit}>
         <div className="form-group"> 
           <label>Activity: </label>
-          <select ref="userInput"
+          <select 
               required
               className="form-control"
-              value={this.state.activity}
-              onChange={this.onChangeUsername}>
+              value={this.state.activityName}
+              onChange={this.onChangeActivityName}>
               {
-                this.state.activities.map(function(activity) {
+                this.state.activities.map(function(activityName) {
                   return <option 
-                    key={activity}
-                    value={activity}>{activity}
+                    key={activityName}
+                    value={activityName}>{activityName}
                     </option>;
                 })
               }
@@ -110,20 +100,20 @@ export default class EditExercise extends Component {
         </div>
         <div className="form-group"> 
           <label>Reps: </label>
-          <input  type="text"
+          <input  type="number"
               required
               className="form-control"
               value={this.state.reps}
-              onChange={this.onChangeDescription}
+              onChange={this.onChangeReps}
               />
         </div>
         <div className="form-group">
-          <label>Weight (in kilos): </label>
+          <label>Weight without bar (in kilos): </label>
           <input 
               type="text" 
               className="form-control"
               value={this.state.weight}
-              onChange={this.onChangeDuration}
+              onChange={this.onChangeWeight}
               />
         </div>
         <div className="form-group">
@@ -137,7 +127,7 @@ export default class EditExercise extends Component {
         </div>
 
         <div className="form-group">
-          <input type="submit" value="Edit Exercise Log" className="btn btn-primary" />
+          <input type="submit" value="Create Set" className="btn btn-primary" />
         </div>
       </form>
     </div>

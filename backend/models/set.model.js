@@ -1,9 +1,9 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
-const exerciseSchema = new Schema(
+const setSchema = new Schema(
   {
-    activity: { type: String, required: true },
+    activityName: { type: String, required: true },
     reps: { type: String, required: true },
     weight: { type: String, required: true },
     date: { type: Date, required: true },
@@ -13,6 +13,6 @@ const exerciseSchema = new Schema(
   }
 );
 
-const Exercise = mongoose.model('Exercise', exerciseSchema)
+const Set = mongoose.model('Set', setSchema)
 
-module.exports = Exercise
+module.exports = Set

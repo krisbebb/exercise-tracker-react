@@ -1,40 +1,40 @@
 const router = require('express').Router()
-let User = require('../models/user.model')
+let Activity = require('../models/activity.model')
 
 router.route('/').get((req, res) => {
-    User.find()
-        .then (users => res.json(users))
+    Activity.find()
+        .then (activities => res.json(activities))
         .catch(err => res.status(400).json('Error: ' + err))
 })
 
 router.route('/add').post((req, res) => {
-    const activity = req.body.activity
-    const newUser = new User({activity})
+    const activityName = req.body.activityName
+    const newActivity = new Activity({activityName})
 
-    newUser.save()
-        .then (() => res.json('User added!'))
+    newActivity.save()
+        .then (() => res.json('Activity added!'))
         .catch(err => res.status(400).json('Error: ' + err))
 })
 
 router.route('/:id').get((req, res) => {
-    User.findById(req.params.id)
-        .then((user) => res.json(user))
+    Activity.findById(req.params.id)
+        .then((activity) => res.json(activity))
         .catch((err) => res.status(400).json('Error: ' + err));
 })
 
 router.route('/:id').delete((req, res) => {
-    User.findByIdAndDelete(req.params.id)
-        .then(() => res.json('User deleted!'))
+    Activity.findByIdAndDelete(req.params.id)
+        .then(() => res.json('Activity deleted!'))
         .catch((err) => res.status(400).json('Error: ' + err));
 })
 
 router.route('/update/:id').post((req, res) => {
-    User.findById(req.params.id)
-        .then((user) => {
-            user.activity = req.body.activity
+    Activity.findById(req.params.id)
+        .then((activity) => {
+            activity.activityName = req.body.activityName
            
-            user.save()
-            .then(() => res.json('User updated!'))
+            activity.save()
+            .then(() => res.json('Activity updated!'))
             .catch((err) => res.status(400).json('Error: ' + err));
         })
         .catch((err) => res.status(400).json('Error: ' + err));

@@ -6,30 +6,40 @@ class Navbar extends Component {
     return (
       <nav className='navbar navbar-dark bg-dark navbar-expand-lg'>
         <Link to='/' className='navbar-brand'>
-          Exercise Tracker
+          Session Tracker
         </Link>
         <div className='navbar-collapse'>
           <ul className='navbar-nav mr-auto'>
             <li className='navbar-item'>
               <Link to='/' className='nav-link'>
-                Exercises
+                Session Log
               </Link>
             </li>
             <li className='navbar-item'>
               <Link to='/create' className='nav-link'>
-                Create Exercise Log
+                Create Set
               </Link>
             </li>
             <li className='navbar-item'>
-            <Link to='/users' className='nav-link'>
-              Users
+            <Link to='/activities' className='nav-link'>
+              Activities
             </Link>
           </li>
             <li className='navbar-item'>
-              <Link to='/user' className='nav-link'>
-                Create User
+              <Link to='/activity' className='nav-link'>
+                Create Activity
               </Link>
             </li>
+            <li className='navbar-item'>
+              <Link to='/splitDays/create' className='nav-link'>
+                Create Split Group
+              </Link>
+            </li>
+            <li className='navbar-item'>
+            <Link to='/splitDays/list' className='nav-link'>
+              Show Split Groups
+            </Link>
+          </li>
           </ul>
         </div>
       </nav>

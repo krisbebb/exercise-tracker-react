@@ -1,21 +1,22 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
-const userSchema = new Schema(
+const splitDaySchema = new Schema(
     {
-      activity: {
+      splitDay: {
         type: String,
         require: true,
         unique: true,
         trim: true,
         minLength: 3,
       },
+      activities: [String],
     },
     {
       timestamps: true,
     }
   );
   
-  const User = mongoose.model('User', userSchema)
+  const SplitDay = mongoose.model('SplitDay', splitDaySchema)
   
-  module.exports = User
+  module.exports = SplitDay
